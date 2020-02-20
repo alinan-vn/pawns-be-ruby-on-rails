@@ -41,11 +41,10 @@
 #     )
 # end
 
-# 50.times do 
-#     Reply.create(
-#         content: Faker::TvShows::RickAndMorty.quote,
-#         user_id: rand(1..20),
-#         comment_id: rand(1..50)
+# 500.times do 
+#     AVote.create(
+#         article_id: rand(1..30),
+#         user_id: rand(1..20)
 #     )
 # end
 
@@ -57,10 +56,10 @@
 #     )
 # end
 
-# 500.times do 
-#     AVote.create(
-#         article_id: rand(1..30),
-#         user_id: rand(1..20)
+# 50.times do 
+#     Reply.create(
+#         content: Faker::TvShows::RickAndMorty.quote,
+#         user_id: rand(1..20),
+#         comment_id: rand(1..50)
 #     )
 # end
-
