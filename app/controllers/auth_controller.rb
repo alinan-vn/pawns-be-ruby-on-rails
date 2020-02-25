@@ -1,13 +1,29 @@
 class AuthController < ApplicationController
-    def create
-      user = User.find_by(username: params[:username])
-      if user && user.authenticate(params[:password_digest])
-        render json: { id: user.id, username: user.username }
-      else
-        render json: { error: 'invalid username or password' }
-      end
+  def create
+    user = User.find_by(username: params[:username])
+
+    if user && user.authenticate(params[:password_digest])
+      payload = { id: user.id }
+      hmac_secret = 'secret'
+      token = JWT.encode(payload, hmac_secret, 'HS256')
+      render json: { id: user.id, username: user.username, token: token }
+    else
+      render json: { error: 'invalid username or password' }
     end
-  
-    def show
+  end
+
+  def show
+    token = request.headers['Authorization'].split(' ')[1]
+    decoded_token = JWT.decode(token, 'secret', true, { algorithm: 'HS256' })
+    user_id = decoded_token[0]['id']
+    user = User.find_by(id: user_id)
+    if user
+      render json: { id: user.id, username: user.username, token: token }
+    else
+      render json: { error: 'invalid token' }
     end
+
+
+
+  end
 end

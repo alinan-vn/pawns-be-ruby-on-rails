@@ -12,8 +12,13 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.create(strong_params(:username, :password, :elo, :profile_pic, :profile_background, :bio))
-        render json: user
+        user = User.new(strong_params(:username, :password, :elo, :profile_pic, :profile_background, :bio))
+        if user.valid?
+            user.save
+            render json: user
+        else
+            render json: { error: 'failed to create user: invalid username or password' }
+        end
     end
 
     def edit

@@ -1,9 +1,14 @@
 class AVotesController < ApplicationController
     def index
-        render json: AVote.all
+        votes = AVote.all.find_all{|voteObj| voteObj.article_id == params[:article_id]}
+        # byebug
+
+
+        render json: votes
     end
 
     def show
+        grab article using 
         avote = AVote.find_by(id: params[:id])
         render json: avote
     end
