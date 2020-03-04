@@ -8,15 +8,16 @@ class CommentsController < ApplicationController
         render json: comment
     end
 
-    def new
+    def get_comments
+        id_num = params[:user_id].to_i
+        comments = Comment.all.find_all{|comment| comment.user_id == id_num}  
+        # byebug  
+        render json: comments
     end
 
     def create
         comment = Comment.create(strong_params(:content, :article_id, :user_id))
         render json: comment
-    end
-
-    def edit
     end
 
     def update

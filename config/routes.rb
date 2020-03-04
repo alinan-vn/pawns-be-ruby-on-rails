@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   get '/current_user', to: 'auth#show'
 
   get '/get_votes_and_comments/:article_id', to: 'articles#get_votes_and_comments'
-  
+  get 'get_comments/:user_id', to: 'comments#get_comments'
 end

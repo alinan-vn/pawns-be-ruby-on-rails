@@ -5,19 +5,27 @@ class UsersController < ApplicationController
 
     def show
         user = User.find_by(id: params[:id])
-        render json: user
+        render json: user, except: :password_digest
     end
 
     def new
     end
 
     def create
-        user = User.new(strong_params(:username, :password, :elo, :profile_pic, :profile_background, :bio))
+        user = User.new(
+            username: params[:username], 
+            password: params[:password], 
+            elo: params[:elo], 
+            bio: params[:bio], 
+            profile_pic: params[:profile_pic], 
+            profile_background: params[:profile_background]
+            )
         if user.valid?
             user.save
             render json: user
         else
-            render json: { error: 'failed to create user: invalid username or password' }
+            # byebug
+            render json: { error: 'failed to create user: invalid username or password', user: user }
         end
     end
 
@@ -26,7 +34,8 @@ class UsersController < ApplicationController
 
     def update
         user = User.find_by(id: params[:id])
-        user.update(strong_params(:elo, :profile_pic, :profile_background, :bio))
+        user.update(strong_params)
+
         render json: user
     end
 
@@ -37,7 +46,7 @@ class UsersController < ApplicationController
 
     private
 
-    def strong_params(*args)
-        params.require(:user).permit(*args)
+    def strong_params
+        params.require(:user).permit(:username, :password, :elo, :profile_pic, :profile_background, :bio)
     end
 end

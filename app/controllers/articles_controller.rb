@@ -3,10 +3,10 @@ class ArticlesController < ApplicationController
         render json: Article.all
     end
 
-    # def show
-    #     avote = AVote.find_by(id: params[:id])
-    #     render json: avote
-    # end
+    def show
+        article = Article.find_by(id: params[:id])
+        render json: article
+    end
 
     # def new
     # end
