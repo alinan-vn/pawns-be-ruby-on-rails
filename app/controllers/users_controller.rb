@@ -12,6 +12,8 @@ class UsersController < ApplicationController
     end
 
     def create
+
+
         user = User.new(
             username: params[:username], 
             password: params[:password], 
@@ -22,7 +24,15 @@ class UsersController < ApplicationController
             )
         if user.valid?
             user.save
-            render json: user
+
+            payload = { id: user.id }
+            hmac_secret = 'secret'
+            token = JWT.encode(payload, hmac_secret, 'HS256')
+
+            # byebug
+
+            render json: { id: user.id, username: user.username, token: token }
+            # redirect_to :controller => 'AuthController', :action => 'create', params
         else
             # byebug
             render json: { error: 'failed to create user: invalid username or password', user: user }

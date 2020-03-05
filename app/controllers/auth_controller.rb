@@ -1,7 +1,7 @@
 class AuthController < ApplicationController
   def create
     user = User.find_by(username: params[:username])
-
+    # byebug
     if user && user.authenticate(params[:password_digest])
       payload = { id: user.id }
       hmac_secret = 'secret'
