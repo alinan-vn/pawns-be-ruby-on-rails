@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+    wrap_parameters format: :json
+    wrap_parameters :user, include: [:username, :password, :elo, :bio, :profile_pic, :profile_background]
+
     def index
         render json: User.all
     end
@@ -12,29 +15,18 @@ class UsersController < ApplicationController
     end
 
     def create
+        user = User.new(strong_params)
 
-
-        user = User.new(
-            username: params[:username], 
-            password: params[:password], 
-            elo: params[:elo], 
-            bio: params[:bio], 
-            profile_pic: params[:profile_pic], 
-            profile_background: params[:profile_background]
-            )
         if user.valid?
             user.save
-
+            
             payload = { id: user.id }
             hmac_secret = 'secret'
             token = JWT.encode(payload, hmac_secret, 'HS256')
 
-            # byebug
-
             render json: { id: user.id, username: user.username, token: token }
             # redirect_to :controller => 'AuthController', :action => 'create', params
         else
-            # byebug
             render json: { error: 'failed to create user: invalid username or password', user: user }
         end
     end
@@ -57,6 +49,6 @@ class UsersController < ApplicationController
     private
 
     def strong_params
-        params.require(:user).permit(:username, :password, :elo, :profile_pic, :profile_background, :bio)
+        params.require(:user).permit(:username, :password, :elo, :bio, :profile_pic, :profile_background)
     end
 end
