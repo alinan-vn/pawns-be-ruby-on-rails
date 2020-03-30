@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post '/auth', to: 'auth#create'
   get '/current_user', to: 'auth#show'
 
+  post '/post_article', to: 'articles#post_article'
+
   get '/get_votes_and_comments/:article_id', to: 'articles#get_votes_and_comments'
   get 'get_comments/:user_id', to: 'comments#get_comments'
 end

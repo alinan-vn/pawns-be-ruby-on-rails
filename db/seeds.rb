@@ -29,7 +29,7 @@ names = ['GOB', 'George', 'Michael', 'Oscar', 'Maebe', 'George Michael', 'Tobias
 #     Article.create(
 #         title: Faker::Book.title,
 #         content: Faker::Books::Lovecraft.sentence(word_count: 400),
-#         date: "#{rand(1..12)}-#{rand(1..30)}-#{rand(2012-2019)}",
+#         date: "#{rand(1..12)}-#{rand(1..30)}-#{rand(2012...2019)}",
 #         author: Faker::Book.author
 #     )
 # end

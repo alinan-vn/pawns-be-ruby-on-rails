@@ -8,6 +8,20 @@ class ArticlesController < ApplicationController
         render json: article
     end
 
+    def post_article
+        article = Article.new(
+            title: params[:article][:title],
+            content: params[:article][:content],
+            date: params[:article][:date],
+            author: params[:article][:author]
+        )
+
+        if article.valid?
+            article.save
+            render json: article
+        end
+    end
+
     # def new
     # end
 

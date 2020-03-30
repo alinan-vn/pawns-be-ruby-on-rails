@@ -25,6 +25,7 @@ class AuthController < ApplicationController
         profile_pic: user.profile_pic, 
         profile_background: user.profile_background, 
         bio: user.bio, 
+        writer: user.writer,
         token: token 
       }
     else
