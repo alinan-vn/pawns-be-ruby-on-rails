@@ -22,6 +22,19 @@ class ArticlesController < ApplicationController
         end
     end
 
+    def edit
+    end
+
+    def update
+        article = Article.find_by(id: params[:article][:id])
+        test_article = Article.new(strong_params, author: article.author)
+        if test_article.valid?
+            article.update(strong_params)
+            render json: article
+        end
+
+    end
+
     # def new
     # end
 
@@ -46,8 +59,8 @@ class ArticlesController < ApplicationController
 
     private
 
-    def strong_params(*args)
-        params.require(:article).permit(*args)
+    def strong_params
+        params.require(:article).permit(:title, :content, :date)
     end
 
 end
