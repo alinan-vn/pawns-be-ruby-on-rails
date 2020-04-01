@@ -26,13 +26,12 @@ class ArticlesController < ApplicationController
     end
 
     def update
-        article = Article.find_by(id: params[:article][:id])
-        test_article = Article.new(strong_params, author: article.author)
-        if test_article.valid?
-            article.update(strong_params)
-            render json: article
-        end
+        article = Article.find_by(id: params[:id])
+        # test_article = Article.new(strong_params)
+        article.update(strong_params)
 
+        render json: article
+        
     end
 
     # def new
