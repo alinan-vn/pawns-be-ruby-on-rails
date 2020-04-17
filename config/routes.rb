@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :articles
   resources :comments
   resources :replies
+  resources :blogs
 
   # resources :auth, only: :create
   post '/auth', to: 'auth#create'
