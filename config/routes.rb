@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :replies
   resources :blogs
 
+
+  post '/find_user_by_name', to: 'users#find_user_by_name'
+
   # resources :auth, only: :create
   post '/auth', to: 'auth#create'
   get '/current_user', to: 'auth#show'

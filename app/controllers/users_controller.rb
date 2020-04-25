@@ -14,6 +14,15 @@ class UsersController < ApplicationController
     def new
     end
 
+    def find_user_by_name
+        user = User.find_by(username: params[:username])
+        if user
+            return render json: user, except: :password_digest
+        else
+            return render json: {error: 'user not found'}
+        end
+    end
+
     def create
         user = User.new(strong_params)
 
