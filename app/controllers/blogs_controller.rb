@@ -29,6 +29,11 @@ class BlogsController < ApplicationController
         render json: blog
     end
 
+    def destroy
+        blog = Blog.delete(params[:id])
+        render json: blog
+    end
+
     private
 
     def strong_params
