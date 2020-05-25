@@ -12,7 +12,6 @@ class BlogsController < ApplicationController
         blog = Blog.new(
             title: params[:blog][:title],
             content: params[:blog][:content],
-            date: params[:blog][:date],
             author: params[:blog][:author]
         )
 
